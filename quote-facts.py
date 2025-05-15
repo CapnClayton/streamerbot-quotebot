@@ -7,23 +7,15 @@ from typing import Optional
 from quote_utils import get_quote_dicts
 from quote_utils import write_result
 
+COLLOQUIAL_STREAMER_NAME = ""  # TODO: Pull this from config
+
 WORDS_TO_COUNT_FOR_FACTS = [
-	# "ass",
-	"booty",
-	"chest",
-	"fist",
-	"fuck",
-	"goon",
-	"hole",
-	"mommy",
-	# "shit",
-	"wiglett",
 ]
 WORD_COUNT_SENTENCE_VARIANTS = [
-	"Capn has been quoted as saying \"{word}\" precisely {count} times!",
+	f"{COLLOQUIAL_STREAMER_NAME} has been quoted as saying \"{word}\" precisely {count} times!",
 	"Can you believe streamer has said \"{word}\" {count} times?",
-	"Of course \"{word}\" has been quoted {count} times. Would you expect any less of Capn?",
-	"Oh \"{word}\"! Yeah, that's something Capn has probably said. It's in {count} quotes after all."
+	f"Of course \"{word}\" has been quoted {count} times. Would you expect any less of {COLLOQUIAL_STREAMER_NAME}?",
+	f"Oh \"{word}\"! Yeah, that's something {COLLOQUIAL_STREAMER_NAME} has probably said. It's in {count} quotes after all."
 ]
 
 
