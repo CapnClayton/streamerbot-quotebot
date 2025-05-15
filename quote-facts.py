@@ -19,15 +19,15 @@ WORD_COUNT_SENTENCE_VARIANTS = [
 ]
 
 
-def _get_count_of_quotes_containing_word(word: str, quote_dicts: dict, is_capn: Optional[bool] = True) -> int:
+def _get_count_of_quotes_containing_word(word: str, quote_dicts: dict, is_streamer: Optional[bool] = True) -> int:
 	count = 0
 	for qd in quote_dicts:
 		quote = qd["quote"].lower()
 		if word in quote:
 			# This could be collapsed into a single conditional, but this is easier to read
-			if is_capn and "@" not in quote:
+			if is_streamer and "@" not in quote:
 				count += 1
-			elif not is_capn:
+			elif not is_streamer:
 				count += 1
 	return count
 
@@ -54,7 +54,7 @@ def _generate_facts(quote_dicts: dict) -> list:
 	facts.append(f"The game with the most quotes is {game} with {count} quotes!")
 
 	# Quotes from other users
-	facts.append(f"There are {_get_count_of_quotes_containing_word("@", quote_dicts, is_capn=False)} quotes that are from the community, and not CAPN !")
+	facts.append(f"There are {_get_count_of_quotes_containing_word("@", quote_dicts, is_streamer=False)} quotes that are from the community, and not CAPN !")
 	
 	# Generate word count stats
 	for word in WORDS_TO_COUNT_FOR_FACTS:
