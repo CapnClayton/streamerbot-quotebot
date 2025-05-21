@@ -6,13 +6,14 @@ from collections import OrderedDict
 from datetime import datetime
 from typing import List
 
+from constants import DEFAULT_TIMEZONE_STR
 from constants import TIMEZONE
 from utils import write_result
 
 try:
 	timezone = pytz.timezone(TIMEZONE)
 except pytz.exceptions.UnknownTimeZoneError:
-	timezone = pytz.timezone("UTC")
+	timezone = pytz.timezone(DEFAULT_TIMEZONE_STR)
 
 def _is_direct_quote(cmd_args: List[str]) -> bool:
 	if len(cmd_args) == 6:
