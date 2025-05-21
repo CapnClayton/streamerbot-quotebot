@@ -1,8 +1,8 @@
 import random
 import sys
 
-from quote_utils import get_quote_dicts
-from quote_utils import write_result
+from utils import get_quote_dicts
+from utils import write_result
 
 RANDOM_QUOTE_IDENTIFIER = -1
 IMPROPER_TYPE = -2

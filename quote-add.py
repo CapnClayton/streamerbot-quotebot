@@ -7,8 +7,8 @@ from collections import OrderedDict
 from datetime import datetime
 from typing import List
 
-from quote_utils import get_quote_file
-from quote_utils import write_result
+from utils import get_quote_file
+from utils import write_result
 
 timezone = pytz.timezone("America/Chicago")  # Update this to be your timezone (TODO: Extract to config)
 

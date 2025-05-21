@@ -3,8 +3,8 @@ This could be replaced with reading a latest_quote.txt file
 if adding quotes just updates that file in the future.
 """
 
-from quote_utils import get_quote_dicts
-from quote_utils import write_result
+from utils import get_quote_dicts
+from utils import write_result
 
 
 def get_quote_text():

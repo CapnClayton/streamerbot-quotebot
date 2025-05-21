@@ -2,8 +2,8 @@ import json
 import random
 import sys
 
-from quote_utils import get_quote_file
-from quote_utils import write_result
+from utils import get_quote_file
+from utils import write_result
 
 
 def get_quote_delete_result():

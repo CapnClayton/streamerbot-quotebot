@@ -5,7 +5,7 @@ from typing import List
 
 QUOTE_FILE = "quotes.json"
 
-def get_quote_file() -> List[Dict]:
+def get_quote_file() -> Dict:
 	with open(QUOTE_FILE, "r", encoding="utf8") as quote_file:
 		quote_file_raw = quote_file.read()
 		return json.loads(quote_file_raw)
