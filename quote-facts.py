@@ -5,10 +5,11 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
+from constants import COLLOQUIAL_USERNAME
 from utils import get_quote_dicts
 from utils import write_result
 
-COLLOQUIAL_STREAMER_NAME = ""  # TODO: Pull this from config
+COLLOQUIAL_STREAMER_NAME = COLLOQUIAL_USERNAME
 
 WORDS_TO_COUNT_FOR_FACTS = [
 ]

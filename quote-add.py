@@ -1,16 +1,18 @@
 import json
 import pytz
-import random
 import sys
 
 from collections import OrderedDict
 from datetime import datetime
 from typing import List
 
-from utils import get_quote_file
+from constants import TIMEZONE
 from utils import write_result
 
-timezone = pytz.timezone("America/Chicago")  # Update this to be your timezone (TODO: Extract to config)
+try:
+	timezone = pytz.timezone(TIMEZONE)
+except pytz.exceptions.UnknownTimeZoneError:
+	timezone = pytz.timezone("UTC")
 
 def _is_direct_quote(cmd_args: List[str]) -> bool:
 	if len(cmd_args) == 6:

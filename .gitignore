@@ -1,3 +1,7 @@
+# Config
+config.yaml
+
+# Don't modify text files, but pull down clean copies for simplicity
 latest_quote.txt
 quote.txt
 quote_add_output.txt
@@ -5,7 +9,9 @@ quote_delete_result.txt
 quote_fact.txt
 quote_output.txt
 
+############################################
 #- Auto-generated Python-based git ignore -#
+############################################
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
