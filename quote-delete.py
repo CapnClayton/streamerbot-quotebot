@@ -28,6 +28,7 @@ def get_quote_delete_result():
             quote["id"] = quote_id - 1
         quotes_to_keep.append(quote)
     quote_file["quotes"] = quotes_to_keep
+    quote_file["nextId"] = len(quotes_to_keep) + 1
 
     with open("quotes.json", "w", encoding="utf-8") as outfile:
         json.dump(quote_file, outfile, indent=2, ensure_ascii=False)
