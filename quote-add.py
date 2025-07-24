@@ -60,6 +60,7 @@ def append_to_quote_json(
         {
           "version": 0,
           "t": "2025-05-07T17:44:31.9296476-05:00",
+          "nextId": X,
           "quotes": [
             {
               "timestamp": "2023-07-25T21:47:54.6192662-05:00",
@@ -77,7 +78,8 @@ def append_to_quote_json(
     """
     with open(file_loc, "r", encoding="utf8") as f:
         quote_data: dict = json.loads(f.read())
-    quote_id = max(qd["id"] for qd in quote_data["quotes"]) + 1
+    # if nextId root key exists, then we can expediently determine the max id for a faster quote addition
+    quote_id = int(quote_data.get("nextId", 0)) or max(qd["id"] for qd in quote_data["quotes"]) + 1
     # Use ordered dict to ensure keys don't randomize between quotes
     new_quote_dict = OrderedDict([
         ("timestamp", _get_quote_time()),
@@ -90,6 +92,8 @@ def append_to_quote_json(
         ("quote", quote_text),
     ])
     quote_data["quotes"].append(new_quote_dict)
+    # Even if next_id key was not initially present, then subsequent adds should add it, creating backwards compatibility
+    quote_data["nextId"] = quote_id + 1
     with open(file_loc, "w", encoding="utf8") as f:
         f.write(json.dumps(quote_data, indent=2, ensure_ascii=False))
     return f"{username} has successfully added quote {str(quote_id)}!"
