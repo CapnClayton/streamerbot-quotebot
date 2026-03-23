@@ -16,5 +16,5 @@ try:
 except OSError:
     config = {}
 
-COLLOQUIAL_USERNAME = config.get("COLLOQUIAL_USERNAME", "streamer")
-TIMEZONE = config.get("TIMEZONE", DEFAULT_TIMEZONE_STR)
+COLLOQUIAL_USERNAME = config.get("colloquial_username", "streamer")
+TIMEZONE = config.get("timezone", DEFAULT_TIMEZONE_STR)
