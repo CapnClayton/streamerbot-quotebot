@@ -17,7 +17,7 @@ An alternative quote system for **Streamerbot** with expanded functionality. Thi
 
 ### Prerequisites
 
-- Python 3.7+
+- Python 3.12+
 - Streamerbot installation (for integration)
 
 ### Setup
@@ -42,8 +42,8 @@ Create a `config.yaml` file in the project root with the following settings:
 # Used in quote fact outputs
 colloquial_username: Capn
 
-# Valid timezone from pytz
-# See: https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568
+# Valid IANA timezone name
+# See: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone: America/Chicago
 ```
 
@@ -122,8 +122,8 @@ The scripts generate output files for Streamerbot integration:
 
 ## Dependencies
 
-- **pytz** - Timezone handling
 - **pyyaml** - Configuration file parsing
+- **tzdata** - IANA timezone database for `zoneinfo` (required on Windows)
 
 See `requirements.txt` for version details.
 
