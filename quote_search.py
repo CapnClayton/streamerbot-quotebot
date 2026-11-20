@@ -1,6 +1,8 @@
 import random
 import sys
 
+from utils import MISSING_QUOTE_FILE_MESSAGE
+from utils import QuoteFileNotFoundError
 from utils import get_quote_dicts
 from utils import write_result
 
@@ -29,7 +31,11 @@ def get_quote_text():
 
 
 def main():
-    write_result("quote_output.txt", get_quote_text())
+    try:
+        text = get_quote_text()
+    except QuoteFileNotFoundError:
+        text = MISSING_QUOTE_FILE_MESSAGE
+    write_result("quote_output.txt", text)
 
 
 main()

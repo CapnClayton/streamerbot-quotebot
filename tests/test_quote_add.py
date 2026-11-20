@@ -124,3 +124,25 @@ def test_add_invalid_timezone_falls_back_to_utc(
     bot.run("quote_add", "214", "CheeseCurdLover", "999", "Celeste", "Hello")
 
     assert bot.read_quotes()["quotes"][-1]["timestamp"].endswith("+00:00")
+
+
+def test_add_creates_quote_file_when_missing(bot: QuoteBot) -> None:
+    bot.quotes_path.unlink()
+
+    output = bot.run("quote_add", "214", "CheeseCurdLover", "999", "Celeste", "1st")
+
+    assert output == "CheeseCurdLover has successfully added quote 1!"
+    data = bot.read_quotes()
+    assert data["version"] == 0
+    assert data["nextId"] == 2
+    assert [q["id"] for q in data["quotes"]] == [1]
+    assert data["quotes"][0]["quote"] == '"1st"'
+
+
+def test_add_to_empty_quote_list_without_next_id(bot: QuoteBot) -> None:
+    bot.write_quotes({"quotes": []})
+
+    output = bot.run("quote_add", "214", "CheeseCurdLover", "999", "Celeste", "1st")
+
+    assert output == "CheeseCurdLover has successfully added quote 1!"
+    assert bot.read_quotes()["nextId"] == 2

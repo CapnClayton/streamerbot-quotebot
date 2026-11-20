@@ -6,6 +6,8 @@ from typing import List
 from typing import Optional
 
 from constants import COLLOQUIAL_USERNAME
+from utils import MISSING_QUOTE_FILE_MESSAGE
+from utils import QuoteFileNotFoundError
 from utils import get_quote_dicts
 from utils import write_result
 
@@ -90,7 +92,11 @@ def get_fact_text():
 
 
 def main():
-    write_result("quote_fact.txt", get_fact_text())
+    try:
+        text = get_fact_text()
+    except QuoteFileNotFoundError:
+        text = MISSING_QUOTE_FILE_MESSAGE
+    write_result("quote_fact.txt", text)
 
 
 main()

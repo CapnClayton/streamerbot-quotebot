@@ -1,7 +1,8 @@
 import json
-import random
 import sys
 
+from utils import MISSING_QUOTE_FILE_MESSAGE
+from utils import QuoteFileNotFoundError
 from utils import get_quote_file
 from utils import write_result
 
@@ -37,7 +38,11 @@ def get_quote_delete_result():
 
 
 def main():
-    write_result("quote_delete_result.txt", get_quote_delete_result())
+    try:
+        text = get_quote_delete_result()
+    except QuoteFileNotFoundError:
+        text = MISSING_QUOTE_FILE_MESSAGE
+    write_result("quote_delete_result.txt", text)
 
 
 main()

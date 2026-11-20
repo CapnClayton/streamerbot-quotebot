@@ -1,8 +1,10 @@
+import copy
 import json
 import sys
 
 from collections import OrderedDict
 from datetime import datetime
+from pathlib import Path
 from typing import List
 from zoneinfo import ZoneInfo
 from zoneinfo import ZoneInfoNotFoundError
@@ -15,6 +17,9 @@ try:
     timezone = ZoneInfo(TIMEZONE)
 except (ZoneInfoNotFoundError, ValueError):
     timezone = ZoneInfo(DEFAULT_TIMEZONE_STR)
+
+# Used when quotes.json does not exist yet, so the first quote add creates it
+EMPTY_QUOTE_FILE = {"version": 0, "nextId": 1, "quotes": []}
 
 
 def _is_direct_quote(cmd_args: List[str]) -> bool:
@@ -77,12 +82,16 @@ def append_to_quote_json(
           ]
         }
     """
-    with open(file_loc, "r", encoding="utf8") as f:
-        quote_data: dict = json.loads(f.read())
+    quote_data: dict
+    if Path(file_loc).exists():
+        with open(file_loc, "r", encoding="utf8") as f:
+            quote_data = json.loads(f.read())
+    else:
+        quote_data = copy.deepcopy(EMPTY_QUOTE_FILE)
     # if nextId root key exists, then we can expediently determine the max id for a faster quote addition
     quote_id = (
         int(quote_data.get("nextId", 0))
-        or max(qd["id"] for qd in quote_data["quotes"]) + 1
+        or max((qd["id"] for qd in quote_data["quotes"]), default=0) + 1
     )
     # Use ordered dict to ensure keys don't randomize between quotes
     new_quote_dict = OrderedDict(

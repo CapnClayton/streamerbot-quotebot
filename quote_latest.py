@@ -3,6 +3,8 @@ This could be replaced with reading a latest_quote.txt file
 if adding quotes just updates that file in the future.
 """
 
+from utils import MISSING_QUOTE_FILE_MESSAGE
+from utils import QuoteFileNotFoundError
 from utils import get_quote_dicts
 from utils import write_result
 
@@ -19,7 +21,11 @@ def get_quote_text():
 
 
 def main():
-    write_result("latest_quote.txt", get_quote_text())
+    try:
+        text = get_quote_text()
+    except QuoteFileNotFoundError:
+        text = MISSING_QUOTE_FILE_MESSAGE
+    write_result("latest_quote.txt", text)
 
 
 main()

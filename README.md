@@ -41,7 +41,7 @@ CI runs on Windows and Ubuntu (Python 3.12-3.14).
    copy config.example.yaml config.yaml    # Windows
    ```
 4. Edit `config.yaml` with your settings (see [Configuration](#configuration) below)
-5. Put your quotes file at `quotes.json` in the folder you run the scripts from (see [Quote file format](#quote-file-format)). It is **not** created automatically.
+5. If you have an existing quotes file, then copy it as `quotes.json` into the folder from which you run the scripts (see [Quote file format](#quote-file-format)). If you don't have one, `quote_add.py` creates an empty one when you add your first quote.
 
 ## Try it without Streamer.bot
 
@@ -162,7 +162,6 @@ Returns one random fact about your quotes, such as the total count, the top cont
 ```
 
 - `nextId` is optional. If it is missing, the next ID is calculated from the existing quotes, and `nextId` is added on the next add or delete.
-- To start with no quotes, use `{"nextId": 1, "quotes": []}`.
 
 See [`tests/fixtures/quotes.json`](tests/fixtures/quotes.json) for a complete example.
 

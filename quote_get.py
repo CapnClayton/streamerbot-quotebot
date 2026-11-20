@@ -2,6 +2,8 @@ import random
 import sys
 from typing import Any
 
+from utils import MISSING_QUOTE_FILE_MESSAGE
+from utils import QuoteFileNotFoundError
 from utils import get_quote_dicts
 from utils import write_result
 
@@ -65,7 +67,11 @@ def main() -> None:
         #  empty string so we don't post a message
         write_result("quote.txt", "")
         return
-    write_result("quote.txt", get_quote_text(quote_id))
+    try:
+        text = get_quote_text(quote_id)
+    except QuoteFileNotFoundError:
+        text = MISSING_QUOTE_FILE_MESSAGE
+    write_result("quote.txt", text)
 
 
 main()
