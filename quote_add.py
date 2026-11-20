@@ -19,7 +19,7 @@ except (ZoneInfoNotFoundError, ValueError):
 
 def _is_direct_quote(cmd_args: List[str]) -> bool:
     if len(cmd_args) == 6:
-        # Naively yes: ex// quote-add.py <user_id> CapnCeedee <game_id> "Persona 5 Royal" "This is a quote"
+        # Naively yes: ex// quote_add.py <user_id> CapnCeedee <game_id> "Persona 5 Royal" "This is a quote"
         return True
     return False
 
@@ -117,9 +117,9 @@ def add_quote(cmd_args: List[str], quote_file_loc: str) -> str:
 def main():
     """
     Invoked as:
-        - quote-add.py <user_id> <username> <game_id> <game> "<quote text>"
-        - quote-add.py <user_id> <username> <game_id> <game> <quote text>
-        - quote-add.py <user_id> <username> <game_id> <game> <quote text> - @<username>
+        - quote_add.py <user_id> <username> <game_id> <game> "<quote text>"
+        - quote_add.py <user_id> <username> <game_id> <game> <quote text>
+        - quote_add.py <user_id> <username> <game_id> <game> <quote text> - @<username>
     """
     quote_file = "quotes.json"
     write_result("quote_add_output.txt", add_quote(sys.argv, quote_file))

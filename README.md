@@ -57,38 +57,38 @@ If `config.yaml` is not found, defaults will be used:
 
 #### Add a Quote
 ```bash
-python quote-add.py <user_id> <username> <game_id> <game_name> "<quote_text>"
+python quote_add.py <user_id> <username> <game_id> <game_name> "<quote_text>"
 ```
 Adds a new quote with timestamp and associated metadata.
 
 #### Get a Quote
 ```bash
-python quote-get.py [quote_id]
+python quote_get.py [quote_id]
 ```
-- `quote-get.py` - Returns a random quote
-- `quote-get.py 5` - Returns quote with ID 5
+- `quote_get.py` - Returns a random quote
+- `quote_get.py 5` - Returns quote with ID 5
 
 #### Latest Quote
 ```bash
-python quote-latest.py
+python quote_latest.py
 ```
 Retrieves the most recently added quote.
 
 #### Search Quotes
 ```bash
-python quote-search.py <search_term>
+python quote_search.py <search_term>
 ```
 Searches quotes by content, user, or game.
 
 #### Delete a Quote
 ```bash
-python quote-delete.py <quote_id>
+python quote_delete.py <quote_id>
 ```
 Removes a quote by ID and optimizes remaining IDs.
 
 #### Quote Facts
 ```bash
-python quote-facts.py
+python quote_facts.py
 ```
 Displays statistics and facts about your quotes.
 
@@ -96,12 +96,12 @@ Displays statistics and facts about your quotes.
 
 ```
 streamerbot-quotebot/
-├── quote-add.py              # Add new quotes
-├── quote-delete.py           # Delete quotes
-├── quote-facts.py            # View quote statistics
-├── quote-get.py              # Retrieve quotes
-├── quote-latest.py           # Get most recent quote
-├── quote-search.py           # Search quotes
+├── quote_add.py              # Add new quotes
+├── quote_delete.py           # Delete quotes
+├── quote_facts.py            # View quote statistics
+├── quote_get.py              # Retrieve quotes
+├── quote_latest.py           # Get most recent quote
+├── quote_search.py           # Search quotes
 ├── constants.py              # Configuration and constants
 ├── utils.py                  # Shared utilities
 ├── config.example.yaml       # Configuration template
