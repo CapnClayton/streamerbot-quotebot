@@ -1,0 +1,37 @@
+{
+  "version": 0,
+  "t": "2025-05-07T17:44:31.9296476-05:00",
+  "nextId": 4,
+  "quotes": [
+    {
+      "timestamp": "2023-07-25T21:47:54.6192662-05:00",
+      "id": 1,
+      "userId": "1001",
+      "user": "WiglettsAnonymous",
+      "platform": "twitch",
+      "gameId": "511864",
+      "gameName": "Persona 5 Royal",
+      "quote": "\"I am thou, thou art I\""
+    },
+    {
+      "timestamp": "2023-07-25T22:10:00.0000000-05:00",
+      "id": 2,
+      "userId": "1001",
+      "user": "WiglettsAnonymous",
+      "platform": "twitch",
+      "gameId": "511864",
+      "gameName": "Persona 5 Royal",
+      "quote": "\"Take your time\""
+    },
+    {
+      "timestamp": "2024-01-02T19:00:00.0000000-06:00",
+      "id": 3,
+      "userId": "2002",
+      "user": "DakPrescottNo1Fan",
+      "platform": "twitch",
+      "gameId": "33214",
+      "gameName": "Rocket League",
+      "quote": "\"That was a great play\" - @DakPrescottNo2Fan"
+    }
+  ]
+}

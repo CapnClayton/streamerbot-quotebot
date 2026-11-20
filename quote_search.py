@@ -12,7 +12,9 @@ def get_quote_text():
         return "You must pass a word to search quotes!"
 
     quote_dicts = get_quote_dicts()
-    quotes = [quote for quote in quote_dicts if search_word.lower() in quote["quote"].lower()]
+    quotes = [
+        quote for quote in quote_dicts if search_word.lower() in quote["quote"].lower()
+    ]
     random.shuffle(quotes)
 
     if quotes:

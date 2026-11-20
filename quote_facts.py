@@ -11,17 +11,18 @@ from utils import write_result
 
 COLLOQUIAL_STREAMER_NAME = COLLOQUIAL_USERNAME
 
-WORDS_TO_COUNT_FOR_FACTS = [
-]
+WORDS_TO_COUNT_FOR_FACTS = []
 WORD_COUNT_SENTENCE_VARIANTS = [
-    "{COLLOQUIAL_STREAMER_NAME} has been quoted as saying \"{word}\" precisely {count} times!",
-    "Can you believe streamer has said \"{word}\" {count} times?",
-    "Of course \"{word}\" has been quoted {count} times. Would you expect any less of {COLLOQUIAL_STREAMER_NAME}?",
-    "Oh \"{word}\"! Yeah, that's something {COLLOQUIAL_STREAMER_NAME} has probably said. It's in {count} quotes after all."
+    '{COLLOQUIAL_STREAMER_NAME} has been quoted as saying "{word}" precisely {count} times!',
+    'Can you believe streamer has said "{word}" {count} times?',
+    'Of course "{word}" has been quoted {count} times. Would you expect any less of {COLLOQUIAL_STREAMER_NAME}?',
+    "Oh \"{word}\"! Yeah, that's something {COLLOQUIAL_STREAMER_NAME} has probably said. It's in {count} quotes after all.",
 ]
 
 
-def _get_count_of_quotes_containing_word(word: str, quote_dicts: List[Dict], is_streamer: Optional[bool] = True) -> int:
+def _get_count_of_quotes_containing_word(
+    word: str, quote_dicts: List[Dict], is_streamer: Optional[bool] = True
+) -> int:
     count = 0
     for qd in quote_dicts:
         quote = qd["quote"].lower()
@@ -41,7 +42,9 @@ def _generate_facts(quote_dicts: List[Dict]) -> List[str]:
     ]
 
     # User with most quotes contributed
-    user, count = Counter({qd["id"]: qd["user"] for qd in quote_dicts}.values()).most_common(1)[0]
+    user, count = Counter(
+        {qd["id"]: qd["user"] for qd in quote_dicts}.values()
+    ).most_common(1)[0]
     facts.append(f"{user} has added the most quotes! {count} and counting!")
 
     # Amount of quote contributors
@@ -49,16 +52,21 @@ def _generate_facts(quote_dicts: List[Dict]) -> List[str]:
     facts.append(f"{user_count} different people have contributed quotes!")
 
     # Date with most quotes contributed
-    date, count = Counter({qd["id"]: qd["timestamp"].split("T")[0] for qd in quote_dicts}.values()).most_common(1)[0]
+    date, count = Counter(
+        {qd["id"]: qd["timestamp"].split("T")[0] for qd in quote_dicts}.values()
+    ).most_common(1)[0]
     facts.append(f"The most quotes in a day ({count}) occurred on {date}!")
 
     # Game with the most quotes
-    game, count = Counter({qd["id"]: qd["gameName"] for qd in quote_dicts}.values()).most_common(1)[0]
+    game, count = Counter(
+        {qd["id"]: qd["gameName"] for qd in quote_dicts}.values()
+    ).most_common(1)[0]
     facts.append(f"The game with the most quotes is {game} with {count} quotes!")
 
     # Quotes from other users
     facts.append(
-        f"There are {_get_count_of_quotes_containing_word("@", quote_dicts, is_streamer=False)} quotes that are from the community, and not CAPN !")
+        f"There are {_get_count_of_quotes_containing_word("@", quote_dicts, is_streamer=False)} quotes that are from the community, and not CAPN !"
+    )
 
     # Generate word count stats
     for word in WORDS_TO_COUNT_FOR_FACTS:

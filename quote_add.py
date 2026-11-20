@@ -49,12 +49,12 @@ def format_quote(cmd_args: List[str]) -> str:
 
 
 def append_to_quote_json(
-        user_id: str,
-        username: str,
-        game_id: str,
-        game: str,
-        file_loc: str,
-        quote_text: str,
+    user_id: str,
+    username: str,
+    game_id: str,
+    game: str,
+    file_loc: str,
+    quote_text: str,
 ):
     """
     JSON file exists as:
@@ -80,18 +80,23 @@ def append_to_quote_json(
     with open(file_loc, "r", encoding="utf8") as f:
         quote_data: dict = json.loads(f.read())
     # if nextId root key exists, then we can expediently determine the max id for a faster quote addition
-    quote_id = int(quote_data.get("nextId", 0)) or max(qd["id"] for qd in quote_data["quotes"]) + 1
+    quote_id = (
+        int(quote_data.get("nextId", 0))
+        or max(qd["id"] for qd in quote_data["quotes"]) + 1
+    )
     # Use ordered dict to ensure keys don't randomize between quotes
-    new_quote_dict = OrderedDict([
-        ("timestamp", _get_quote_time()),
-        ("id", quote_id),
-        ("userId", user_id),
-        ("user", username),
-        ("platform", "twitch"),
-        ("gameId", game_id),
-        ("gameName", game),
-        ("quote", quote_text),
-    ])
+    new_quote_dict = OrderedDict(
+        [
+            ("timestamp", _get_quote_time()),
+            ("id", quote_id),
+            ("userId", user_id),
+            ("user", username),
+            ("platform", "twitch"),
+            ("gameId", game_id),
+            ("gameName", game),
+            ("quote", quote_text),
+        ]
+    )
     quote_data["quotes"].append(new_quote_dict)
     # Even if next_id key was not initially present, then subsequent adds should add it, creating backwards compatibility
     quote_data["nextId"] = quote_id + 1
