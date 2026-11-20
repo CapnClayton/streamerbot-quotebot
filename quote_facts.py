@@ -1,19 +1,17 @@
 import random
 
 from collections import Counter
-from typing import Dict
-from typing import List
-from typing import Optional
 
 from constants import COLLOQUIAL_USERNAME
 from utils import MISSING_QUOTE_FILE_MESSAGE
+from utils import Quote
 from utils import QuoteFileNotFoundError
 from utils import get_quote_dicts
 from utils import write_result
 
 COLLOQUIAL_STREAMER_NAME = COLLOQUIAL_USERNAME
 
-WORDS_TO_COUNT_FOR_FACTS = []
+WORDS_TO_COUNT_FOR_FACTS: list[str] = []
 WORD_COUNT_SENTENCE_VARIANTS = [
     '{COLLOQUIAL_STREAMER_NAME} has been quoted as saying "{word}" precisely {count} times!',
     'Can you believe streamer has said "{word}" {count} times?',
@@ -23,7 +21,7 @@ WORD_COUNT_SENTENCE_VARIANTS = [
 
 
 def _get_count_of_quotes_containing_word(
-    word: str, quote_dicts: List[Dict], is_streamer: Optional[bool] = True
+    word: str, quote_dicts: list[Quote], is_streamer: bool = True
 ) -> int:
     count = 0
     for qd in quote_dicts:
@@ -37,7 +35,7 @@ def _get_count_of_quotes_containing_word(
     return count
 
 
-def _generate_facts(quote_dicts: List[Dict]) -> List[str]:
+def _generate_facts(quote_dicts: list[Quote]) -> list[str]:
     facts = [
         "The first quote was added on 2023/07/25 by CapnCeedee via a clip created by jspiscool!",
         f"There are {len(quote_dicts)} quotes!",
@@ -83,15 +81,15 @@ def _generate_facts(quote_dicts: List[Dict]) -> List[str]:
     return facts
 
 
-def get_fact_text():
-    quote_dicts: List[Dict] = get_quote_dicts()
+def get_fact_text() -> str:
+    quote_dicts: list[Quote] = get_quote_dicts()
 
     facts = _generate_facts(quote_dicts)
     random.shuffle(facts)
     return facts[0]
 
 
-def main():
+def main() -> None:
     try:
         text = get_fact_text()
     except QuoteFileNotFoundError:

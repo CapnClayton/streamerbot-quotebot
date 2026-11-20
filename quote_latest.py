@@ -9,7 +9,7 @@ from utils import get_quote_dicts
 from utils import write_result
 
 
-def get_quote_text():
+def get_quote_text() -> str:
     quote_dicts = get_quote_dicts()
     # Naively assume last item is latest quote
     q = quote_dicts[-1]
@@ -20,7 +20,7 @@ def get_quote_text():
     return f"Quote #{number}: {text} [{game} | {date}]"
 
 
-def main():
+def main() -> None:
     try:
         text = get_quote_text()
     except QuoteFileNotFoundError:

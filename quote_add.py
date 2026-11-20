@@ -5,12 +5,12 @@ import sys
 from collections import OrderedDict
 from datetime import datetime
 from pathlib import Path
-from typing import List
 from zoneinfo import ZoneInfo
 from zoneinfo import ZoneInfoNotFoundError
 
 from constants import DEFAULT_TIMEZONE_STR
 from constants import TIMEZONE
+from utils import QuoteFile
 from utils import write_result
 
 try:
@@ -19,10 +19,10 @@ except (ZoneInfoNotFoundError, ValueError):
     timezone = ZoneInfo(DEFAULT_TIMEZONE_STR)
 
 # Used when quotes.json does not exist yet, so the first quote add creates it
-EMPTY_QUOTE_FILE = {"version": 0, "nextId": 1, "quotes": []}
+EMPTY_QUOTE_FILE: QuoteFile = {"version": 0, "nextId": 1, "quotes": []}
 
 
-def _is_direct_quote(cmd_args: List[str]) -> bool:
+def _is_direct_quote(cmd_args: list[str]) -> bool:
     if len(cmd_args) == 6:
         # Naively yes: ex// quote_add.py <user_id> CapnCeedee <game_id> "Persona 5 Royal" "This is a quote"
         return True
@@ -43,7 +43,7 @@ def _get_quote_time() -> str:
     return f"{formatted_dt[:-2]}:{formatted_dt[-2:]}"
 
 
-def format_quote(cmd_args: List[str]) -> str:
+def format_quote(cmd_args: list[str]) -> str:
     if _is_direct_quote(cmd_args):
         return _wrap_quote(cmd_args[-1])
     data = " ".join(cmd_args[5:])
@@ -60,7 +60,7 @@ def append_to_quote_json(
     game: str,
     file_loc: str,
     quote_text: str,
-):
+) -> str:
     """
     JSON file exists as:
         {
@@ -82,7 +82,7 @@ def append_to_quote_json(
           ]
         }
     """
-    quote_data: dict
+    quote_data: QuoteFile
     if Path(file_loc).exists():
         with open(file_loc, "r", encoding="utf8") as f:
             quote_data = json.loads(f.read())
@@ -114,7 +114,7 @@ def append_to_quote_json(
     return f"{username} has successfully added quote {str(quote_id)}!"
 
 
-def add_quote(cmd_args: List[str], quote_file_loc: str) -> str:
+def add_quote(cmd_args: list[str], quote_file_loc: str) -> str:
     quote_text = format_quote(cmd_args)
     if not quote_text:
         return "You must provide text to add a quote"
@@ -128,7 +128,7 @@ def add_quote(cmd_args: List[str], quote_file_loc: str) -> str:
     )
 
 
-def main():
+def main() -> None:
     """
     Invoked as:
         - quote_add.py <user_id> <username> <game_id> <game> "<quote text>"

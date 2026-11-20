@@ -7,7 +7,7 @@ from utils import get_quote_dicts
 from utils import write_result
 
 
-def get_quote_text():
+def get_quote_text() -> str:
     try:
         search_word = sys.argv[1]
     except IndexError:
@@ -30,7 +30,7 @@ def get_quote_text():
         return f"No quote found with {search_word}"
 
 
-def main():
+def main() -> None:
     try:
         text = get_quote_text()
     except QuoteFileNotFoundError:

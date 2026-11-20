@@ -220,7 +220,7 @@ pip install -r requirements-dev.txt
 
 pytest                 # run the test suite
 black .                # format the code
-mypy --strict tests    # type-check the tests
+mypy --strict .        # type-check everything
 ```
 
 The tests run each script in a temporary folder with the sample `tests/fixtures/quotes.json`.

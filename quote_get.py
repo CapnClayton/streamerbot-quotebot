@@ -1,8 +1,8 @@
 import random
 import sys
-from typing import Any
 
 from utils import MISSING_QUOTE_FILE_MESSAGE
+from utils import Quote
 from utils import QuoteFileNotFoundError
 from utils import get_quote_dicts
 from utils import write_result
@@ -19,7 +19,7 @@ def parse_quote_id(args: list[str]) -> int | None:
     return int(args[1])
 
 
-def format_quote(quote: dict[str, Any]) -> str:
+def format_quote(quote: Quote) -> str:
     number = quote["id"]
     text = quote["quote"]
     game = quote["gameName"]

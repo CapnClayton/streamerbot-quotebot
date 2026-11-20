@@ -2,12 +2,13 @@ import json
 import sys
 
 from utils import MISSING_QUOTE_FILE_MESSAGE
+from utils import Quote
 from utils import QuoteFileNotFoundError
 from utils import get_quote_file
 from utils import write_result
 
 
-def get_quote_delete_result():
+def get_quote_delete_result() -> str:
     try:
         quote_id_to_delete = int(sys.argv[1])
     except IndexError:
@@ -20,7 +21,7 @@ def get_quote_delete_result():
     if quote_id_to_delete < 1 or quote_id_to_delete > len(quote_dicts):
         return f"No quote with id {quote_id_to_delete} exists"
 
-    quotes_to_keep = list()
+    quotes_to_keep: list[Quote] = []
     for quote in sorted(quote_dicts, key=lambda q: int(q["id"])):
         quote_id = int(quote["id"])
         if quote_id == quote_id_to_delete:
@@ -37,7 +38,7 @@ def get_quote_delete_result():
     return f"Successfully deleted quote {quote_id_to_delete}"
 
 
-def main():
+def main() -> None:
     try:
         text = get_quote_delete_result()
     except QuoteFileNotFoundError:
