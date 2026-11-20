@@ -175,8 +175,10 @@ streamerbot-quotebot/
 ├── quote_get.py              # Retrieve quotes
 ├── quote_latest.py           # Get most recent quote
 ├── quote_search.py           # Search quotes
-├── constants.py              # Configuration and constants
-├── utils.py                  # Shared utilities
+├── helpers/                  # Shared code used by the scripts
+│   ├── constants.py          # Loads config.yaml
+│   ├── types.py              # Type definitions for quotes.json
+│   └── utils.py              # Reads quotes.json and writes output files
 ├── config.example.yaml       # Configuration template
 ├── requirements.txt          # Runtime dependencies
 ├── requirements-dev.txt      # Test and lint dependencies

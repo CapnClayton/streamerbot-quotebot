@@ -3,10 +3,10 @@ This could be replaced with reading a latest_quote.txt file
 if adding quotes just updates that file in the future.
 """
 
-from utils import MISSING_QUOTE_FILE_MESSAGE
-from utils import QuoteFileNotFoundError
-from utils import get_quote_dicts
-from utils import write_result
+from helpers.utils import MISSING_QUOTE_FILE_MESSAGE
+from helpers.utils import QuoteFileNotFoundError
+from helpers.utils import get_quote_dicts
+from helpers.utils import write_result
 
 
 def get_quote_text() -> str:

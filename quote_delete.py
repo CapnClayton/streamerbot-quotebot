@@ -1,11 +1,11 @@
 import json
 import sys
 
-from utils import MISSING_QUOTE_FILE_MESSAGE
-from utils import Quote
-from utils import QuoteFileNotFoundError
-from utils import get_quote_file
-from utils import write_result
+from helpers.types import Quote
+from helpers.utils import MISSING_QUOTE_FILE_MESSAGE
+from helpers.utils import QuoteFileNotFoundError
+from helpers.utils import get_quote_file
+from helpers.utils import write_result
 
 
 def get_quote_delete_result() -> str:

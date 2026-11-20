@@ -1,11 +1,11 @@
 import random
 import sys
 
-from utils import MISSING_QUOTE_FILE_MESSAGE
-from utils import Quote
-from utils import QuoteFileNotFoundError
-from utils import get_quote_dicts
-from utils import write_result
+from helpers.types import Quote
+from helpers.utils import MISSING_QUOTE_FILE_MESSAGE
+from helpers.utils import QuoteFileNotFoundError
+from helpers.utils import get_quote_dicts
+from helpers.utils import write_result
 
 
 def parse_quote_id(args: list[str]) -> int | None:

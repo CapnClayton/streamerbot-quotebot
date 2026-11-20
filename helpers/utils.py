@@ -1,10 +1,7 @@
 import json
 
-from typing import Any
-
-# One quote entry, and the whole quotes.json file
-Quote = dict[str, Any]
-QuoteFile = dict[str, Any]
+from helpers.types import Quote
+from helpers.types import QuoteFile
 
 QUOTE_FILE = "quotes.json"
 MISSING_QUOTE_FILE_MESSAGE = (

@@ -2,12 +2,12 @@ import random
 
 from collections import Counter
 
-from constants import COLLOQUIAL_USERNAME
-from utils import MISSING_QUOTE_FILE_MESSAGE
-from utils import Quote
-from utils import QuoteFileNotFoundError
-from utils import get_quote_dicts
-from utils import write_result
+from helpers.constants import COLLOQUIAL_USERNAME
+from helpers.types import Quote
+from helpers.utils import MISSING_QUOTE_FILE_MESSAGE
+from helpers.utils import QuoteFileNotFoundError
+from helpers.utils import get_quote_dicts
+from helpers.utils import write_result
 
 COLLOQUIAL_STREAMER_NAME = COLLOQUIAL_USERNAME
 
