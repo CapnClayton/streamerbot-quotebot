@@ -1,7 +1,10 @@
 # Config
 config.yaml
 
-# Don't modify text files, but pull down clean copies for simplicity
+# Your quote data (the sample in tests/fixtures/ stays tracked)
+/quotes.json
+
+# Script output files, created on first run
 latest_quote.txt
 quote.txt
 quote_add_output.txt

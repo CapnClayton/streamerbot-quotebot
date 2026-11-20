@@ -190,7 +190,7 @@ streamerbot-quotebot/
 
 ### Output Files
 
-Each script writes its result to a text file for Streamer.bot to read:
+Each script writes its result to a text file for Streamerbot to read. The file is created the first time the script runs, and git ignores these files to avoid accidental commits.
 
 | Script | Output file |
 |---|---|
