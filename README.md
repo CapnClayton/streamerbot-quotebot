@@ -109,6 +109,7 @@ python quote_get.py [quote_id]
 ```
 - `quote_get.py` - Returns a random quote
 - `quote_get.py 5` - Returns quote with ID 5
+- `quote_get.py -1` - Returns the latest quote. Negative numbers count back from the latest, so `-2` is the one before it.
 
 #### Latest Quote
 ```bash

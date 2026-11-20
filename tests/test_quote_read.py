@@ -1,3 +1,5 @@
+import pytest
+
 from conftest import QuoteBot
 
 QUOTE_1 = 'Quote #1: "I am thou, thou art I" [Persona 5 Royal | 2023-07-25]'
@@ -23,6 +25,41 @@ def test_get_id_too_large(bot: QuoteBot) -> None:
 
 def test_get_non_numeric_writes_empty_output(bot: QuoteBot) -> None:
     assert bot.run("quote_get", "add") == ""
+
+
+def test_get_zero_has_no_quote(bot: QuoteBot) -> None:
+    assert bot.run("quote_get", "0") == "There is no quote #0! Quotes start at #1."
+
+
+@pytest.mark.parametrize(
+    ("quote_id", "expected"), [("-1", QUOTE_3), ("-2", QUOTE_2), ("-3", QUOTE_1)]
+)
+def test_get_negative_counts_back_from_latest(
+    bot: QuoteBot, quote_id: str, expected: str
+) -> None:
+    assert bot.run("quote_get", quote_id) == expected
+
+
+def test_get_negative_past_first_quote(bot: QuoteBot) -> None:
+    assert (
+        bot.run("quote_get", "-4") == "Quote -4 does not exist! We only have 3 quotes."
+    )
+
+
+def test_get_negative_one_after_add_returns_new_quote(bot: QuoteBot) -> None:
+    bot.run(
+        "quote_add", "214", "CheeseCurdLover", "999", "Celeste", "Climb the mountain"
+    )
+
+    assert bot.run("quote_get", "-1").startswith(
+        'Quote #4: "Climb the mountain" [Celeste | '
+    )
+
+
+def test_get_with_no_quotes(bot: QuoteBot) -> None:
+    bot.write_quotes({"nextId": 1, "quotes": []})
+
+    assert bot.run("quote_get") == "There are no quotes yet!"
 
 
 def test_latest_returns_last_quote(bot: QuoteBot) -> None:

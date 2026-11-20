@@ -1,55 +1,71 @@
 import random
 import sys
+from typing import Any
 
 from utils import get_quote_dicts
 from utils import write_result
 
-RANDOM_QUOTE_IDENTIFIER = -1
-IMPROPER_TYPE = -2
-ERROR = 0
+
+def parse_quote_id(args: list[str]) -> int | None:
+    """
+    Return the requested quote number, or None when no number was given.
+
+    Raises ValueError when the argument is not a whole number.
+    """
+    if len(args) < 2:
+        return None
+    return int(args[1])
 
 
-def parse_quote_id():
-    try:
-        return int(sys.argv[1])
-    except IndexError:
-        return RANDOM_QUOTE_IDENTIFIER
-    except (TypeError, ValueError):
-        return IMPROPER_TYPE
-    except Exception:
-        return ERROR
-
-
-def get_quote_text(quote_id: int):
-    quote_dicts = get_quote_dicts()
-    max_id = max(qd["id"] for qd in quote_dicts)
-    if quote_id == RANDOM_QUOTE_IDENTIFIER:
-        quote_id = random.randint(1, max_id)
-    elif quote_id > max_id:
-        return f"Quote with id {quote_id} does not exist! We only have {max_id} quotes."
-
-    for qd in quote_dicts:
-        if qd["id"] == quote_id:
-            break
-
-    number = qd["id"]
-    text = qd["quote"]
-    game = qd["gameName"]
-    date = qd["timestamp"].split("T")[0]
+def format_quote(quote: dict[str, Any]) -> str:
+    number = quote["id"]
+    text = quote["quote"]
+    game = quote["gameName"]
+    date = quote["timestamp"].split("T")[0]
     return f"Quote #{number}: {text} [{game} | {date}]"
 
 
-def main():
-    quote_id = parse_quote_id()
-    if quote_id == ERROR:
-        text = "Something went wrong with the quote bot D: "
-    elif quote_id == IMPROPER_TYPE:
+def get_quote_text(quote_id: int | None) -> str:
+    """
+    - None: a random quote
+    - Positive: the quote with that id
+    - Negative: counts back from the latest quote (-1 is the latest)
+    - 0: Special case // no quote
+    """
+    quote_dicts = sorted(get_quote_dicts(), key=lambda qd: int(qd["id"]))
+    if not quote_dicts:
+        return "There are no quotes yet!"
+
+    if quote_id is None:
+        return format_quote(random.choice(quote_dicts))
+
+    if quote_id == 0:
+        return "There is no quote #0! Quotes start at #1."
+
+    if quote_id < 0:
+        if -quote_id > len(quote_dicts):
+            return f"Quote {quote_id} does not exist! We only have {len(quote_dicts)} quotes."
+        return format_quote(quote_dicts[quote_id])
+
+    max_id = int(quote_dicts[-1]["id"])
+    if quote_id > max_id:
+        return f"Quote with id {quote_id} does not exist! We only have {max_id} quotes."
+
+    for quote in quote_dicts:
+        if int(quote["id"]) == quote_id:
+            return format_quote(quote)
+    return f"Quote with id {quote_id} does not exist!"
+
+
+def main() -> None:
+    try:
+        quote_id = parse_quote_id(sys.argv)
+    except ValueError:
         # This also gets invoked on quote add so bail out with an
         #  empty string so we don't post a message
-        text = ""
-    else:
-        text = get_quote_text(quote_id)
-    write_result("quote.txt", text)
+        write_result("quote.txt", "")
+        return
+    write_result("quote.txt", get_quote_text(quote_id))
 
 
 main()
