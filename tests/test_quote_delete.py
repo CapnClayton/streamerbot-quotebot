@@ -27,9 +27,10 @@ def test_delete_last_quote(bot: QuoteBot) -> None:
 def test_add_after_delete_uses_updated_next_id(bot: QuoteBot) -> None:
     bot.run("quote_delete", "1")
 
-    assert bot.run(
-        "quote_add", "214", "CheeseCurdLover", "999", "Celeste", "Hello"
-    ) == "CheeseCurdLover has successfully added quote 3!"
+    assert (
+        bot.run("quote_add", "214", "CheeseCurdLover", "999", "Celeste", "Hello")
+        == "CheeseCurdLover has successfully added quote 3!"
+    )
 
 
 @pytest.mark.parametrize("quote_id", ["0", "4", "-1"])
